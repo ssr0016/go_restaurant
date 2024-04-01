@@ -25,3 +25,11 @@ func Login() gin.HandlerFunc {
 		c.JSON(200, "Login")
 	}
 }
+
+func HashPassword(password string) string {
+
+}
+
+func VerifyPassword(userPassword string, providePassword string) (bool, string) {
+
+}
