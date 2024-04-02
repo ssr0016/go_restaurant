@@ -10,10 +10,10 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"gopkg.in/mgo.v2/bson"
 )
 
 var menuCollection *mongo.Collection = database.OpenCollection(database.Client, "menu")
@@ -84,6 +84,10 @@ func CreateMenu() gin.HandlerFunc {
 	}
 }
 
+func inTimeSpan(start, end, check time.Time) bool {
+	return start.After(time.Now()) && end.After(start)
+}
+
 func UpdateMenu() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
@@ -113,7 +117,6 @@ func UpdateMenu() gin.HandlerFunc {
 				defer cancel()
 				return
 			}
-
 			updatedObj = append(updatedObj, bson.E{"start_date", menu.Start_Date})
 			updatedObj = append(updatedObj, bson.E{"end_date", menu.End_Date})
 

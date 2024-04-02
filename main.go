@@ -1,9 +1,9 @@
 package main
 
 import (
-	"os"
-
+	"golang-restaurant-management/database"
 	"golang-restaurant-management/routes"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo"
