@@ -152,6 +152,5 @@ func OrderItemOrderCreator(order models.Order) string {
 
 	orderCollection.InsertOne(ctx, order)
 	defer cancel()
-
 	return order.Order_id
 }
